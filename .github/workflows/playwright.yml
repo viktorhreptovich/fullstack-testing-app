@@ -5,6 +5,13 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Select the tag to run'
+        type: choice
+        options:
+          - smoke
+          - regress
 
 jobs:
   test:
