@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-database
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: budget
+    volumes:
+      - ./docker-data/db-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    volumes:
+      - ./docker-data/pgadmin-data:/var/lib/pgadmin
+
+  dbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: dbeaver
+    restart: unless-stopped
+    ports:
+      - "8978:8978"
+    volumes:
+      - ./docker-data/cloudbeaver:/opt/cloudbeaver/workspace
+    depends_on:
+      - postgres

@@ -1,0 +1,162 @@
+[
+  {
+    "testCaseTitle": "Should fail when form is empty",
+    "userName": "",
+    "userNameError": "Username is required",
+    "email": "",
+    "emailError": "Email is required",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when username is empty, email and password are invalid",
+    "userName": "",
+    "userNameError": "Username is required",
+    "email": "t.v@mailru",
+    "emailError": "Email is not valid",
+    "password": "12345",
+    "passwordError": "Password must be at least 6 characters long",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when username is empty and email is invalid",
+    "userName": "",
+    "userNameError": "Username is required",
+    "email": "@mail.ru",
+    "emailError": "Email is not valid",
+    "password": "testvv",
+    "passwordError": "",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when username and password are empty",
+    "userName": "",
+    "userNameError": "Username is required",
+    "email": "test.validation@mail.ru",
+    "emailError": "",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when username and email are invalid",
+    "userName": "T",
+    "userNameError": "Username must be at least 2 characters long",
+    "email": "t.v@mailru",
+    "emailError": "Email is not valid",
+    "password": "testvv",
+    "passwordError": "",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when username and email are invalid, password is empty",
+    "userName": "T",
+    "userNameError": "Username must be at least 2 characters long",
+    "email": "@mail.ru",
+    "emailError": "Email is not valid",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when username is invalid and password is empty",
+    "userName": "T",
+    "userNameError": "Username must be at least 2 characters long",
+    "email": "test.validation@mail.ru",
+    "emailError": "",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when username and password are invalid",
+    "userName": "T",
+    "userNameError": "Username must be at least 2 characters long",
+    "email": "",
+    "emailError": "Email is required",
+    "password": "12345",
+    "passwordError": "Password must be at least 6 characters long",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when email is invalid (without domain) and password is empty",
+    "userName": "TV",
+    "userNameError": "",
+    "email": "@mail.ru",
+    "emailError": "Email is not valid",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when password is invalid",
+    "userName": "TV",
+    "userNameError": "",
+    "email": "test.validation@mail.ru",
+    "emailError": "",
+    "password": "12345",
+    "passwordError": "Password must be at least 6 characters long",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when email is empty",
+    "userName": "TV",
+    "userNameError": "",
+    "email": "",
+    "emailError": "Email is required",
+    "password": "testvv",
+    "passwordError": "",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when password is empty",
+    "userName": "TV",
+    "userNameError": "",
+    "email": "t.v@mailru",
+    "emailError": "Email is not valid",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should pass when all fields are valid",
+    "userName": "Test Validation",
+    "userNameError": "",
+    "email": "test.validation@mail.ru",
+    "emailError": "",
+    "password": "testvv",
+    "passwordError": "",
+    "signUpButtonDisabled": false
+  },
+  {
+    "testCaseTitle": "Should fail when email and password are empty",
+    "userName": "Test Validation",
+    "userNameError": "",
+    "email": "",
+    "emailError": "Email is required",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when email is invalid and password is empty",
+    "userName": "Test Validation",
+    "userNameError": "",
+    "email": "t.v@mailru",
+    "emailError": "Email is not valid",
+    "password": "",
+    "passwordError": "Password is required",
+    "signUpButtonDisabled": true
+  },
+  {
+    "testCaseTitle": "Should fail when email and password are invalid",
+    "userName": "Test Validation",
+    "userNameError": "",
+    "email": "@mail.ru",
+    "emailError": "Email is not valid",
+    "password": "12345",
+    "passwordError": "Password must be at least 6 characters long",
+    "signUpButtonDisabled": true
+  }
+]
