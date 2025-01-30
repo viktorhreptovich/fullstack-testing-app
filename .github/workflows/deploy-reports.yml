@@ -23,7 +23,6 @@ jobs:
         with:
           path: reports
 
-
       - name: Get directories list and store in DIRS
         id: get_dirs
         run: |
@@ -36,17 +35,17 @@ jobs:
           # Записываем значение в переменную окружения
           echo "DIRS=${dirs_escaped}" >> $GITHUB_ENV
 
-      - name: List contents of specified directories using for loop
-        run: |
-          echo "Listing contents of specified directories:"
-          for dir in ${{ env.DIRS }}; do
-            if [ -d "$dir" ]; then
-              echo "Contents of directory '$dir':"
-              find "$dir" -print
-            else
-              echo "Directory '$dir' does not exist."
-            fi
-          done
+#      - name: List contents of specified directories using for loop
+#        run: |
+#          echo "Listing contents of specified directories:"
+#          for dir in ${{ env.DIRS }}; do
+#            if [ -d "$dir" ]; then
+#              echo "Contents of directory '$dir':"
+#              find "$dir" -print
+#            else
+#              echo "Directory '$dir' does not exist."
+#            fi
+#          done
           
 
       - name: Upload artifact
@@ -67,6 +66,3 @@ jobs:
       - name: Add summary
         run: |
           echo "📊 [View report](${{ steps.deployment.outputs.page_url }})" >> $GITHUB_STEP_SUMMARY
-#         echo playwright test results >> $GITHUB_STEP_SUMMARY
-          echo "📊 [View report](${{ steps.deployment.outputs.page_url }})"
-
