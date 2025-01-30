@@ -25,6 +25,8 @@ jobs:
 
       - name: Get directories list and store in DIRS
         id: get_dirs
+        with:
+          working-directory: ./reports
         run: |
           # Получаем список директорий в корневой директории
           dirs=$(ls -d */ | sed 's#/##')
@@ -36,6 +38,7 @@ jobs:
           echo "DIRS=${dirs_escaped}" >> $GITHUB_ENV
 
       - name: List contents of specified directories using for loop
+        id: list_contents
         run: |
           echo "Listing contents of specified directories:"
           for dir in ${{ env.DIRS }}; do
