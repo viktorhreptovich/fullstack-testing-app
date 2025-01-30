@@ -46,14 +46,14 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-html-report
-          path: tests/playwright/html-report
+          path: tests/playwright/reports/html-report
           retention-days: 1
       - name: Upload Playwright monocart report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-monocart-report
-          path: tests/playwright/monocart-report
+          path: tests/playwright/reports/monocart-report
           retention-days: 1
 
   deploy-reports:
