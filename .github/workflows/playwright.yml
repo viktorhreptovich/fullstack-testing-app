@@ -26,7 +26,7 @@ jobs:
         working-directory: ./tests/playwright
     environment:
       name: html-report
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ jobs.deploy-reports.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
