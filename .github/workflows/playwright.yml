@@ -10,11 +10,12 @@ on:
         description: 'Select the tag to run'
         type: choice
         options:
+          - all
           - smoke
           - regress
 
 jobs:
-  test:
+  playwright-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
@@ -35,17 +36,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-#      - name: Install Playwright Browsers (Chromium)
-#        run: npx playwright install --with-deps chromium
       - name: Run Playwright tests
         run: npx playwright test
-      - name: Show directory
-        run: cd reports
-      - name: Show reports
-        run: ls
+      - name: Upload Playwright report
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: tests/playwright/reports
           retention-days: 1
+      - name: Deploy to GitHub Pages
+        uses: ./.github/workflows/deploy-reports.yml
