@@ -28,17 +28,13 @@ jobs:
         working-directory: ./reports
         run: |
           # Получаем список директорий в корневой директории
-          dirs=$(ls -d */ | sed 's#/##')
-          
-          # Экранируем пробелы, если они есть в именах директорий
-          dirs_escaped=$(echo "$dirs" | sed 's/ /\\ /g')
+          dirs=$(ls -d */ | tr -d ' \n' | sed 's#/##')
           
           # Выводим список директорий
-          echo "Directories: $dirs"
-          echo "Directories escaped: $dirs_escaped"
+          echo "Directories:\n $dirs"
           
           # Записываем значение в переменную окружения
-          echo "DIRS=${dirs_escaped}" >> $GITHUB_ENV
+          echo "DIRS=${dirs}" >> $GITHUB_ENV
 
       - name: List contents of specified directories using for loop
         id: list_contents
