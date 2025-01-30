@@ -28,10 +28,10 @@ jobs:
         working-directory: ./reports
         run: |
           # Получаем список директорий в корневой директории
-          dirs=$(ls -d */ | tr '\n' ' ' | sed 's#/##')
+          dirs=$(ls -d */ | sed 's#/##'/ tr '\n' ' ')
           
           # Выводим список директорий
-          echo "Directories:\n $dirs"
+          echo "Directories: $dirs"
           
           # Записываем значение в переменную окружения
           echo "DIRS=${dirs}" >> $GITHUB_ENV
