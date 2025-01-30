@@ -23,31 +23,6 @@ jobs:
         with:
           path: reports
 
-      - name: Get directories list and store in DIRS
-        id: get_dirs
-        working-directory: ./reports
-        run: |
-          # Получаем список директорий в корневой директории
-          dirs=$(ls -d */ | sed 's|/$||')
-                    
-          # Выводим список директорий
-          for dir in $dirs; do
-            echo "$dir"
-          done
-          
-          # Записываем значение в переменную окружения
-          echo "DIRS=${dirs}" >> $GITHUB_ENV
-
-      - name: List contents of specified directories using for loop
-        id: list_contents
-        run: |
-          echo "Listing contents of specified directories:"
-          for dir in ${{ env.DIRS }}; do
-            if [ -d "$dir" ]; then
-              echo "'$dir'"
-            fi
-          done
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         if: always()
@@ -63,6 +38,18 @@ jobs:
         with:
           artifact_name: github-pages
         if: always()
+
+      - name: Add summary
+        id: get_dirs
+        working-directory: ./reports
+        run: |
+          # Get list of report directories 
+          dirs=$(ls -d */ | sed 's|/$||')
+          
+          # Выводим список директорий
+          for dir in $dirs; do
+            echo "📊 [View $dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
+          done
 #      - name: Add summary
 #        run: |
 #          echo "Listing contents of specified directories:"
