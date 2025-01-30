@@ -16,13 +16,39 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-#      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - uses: actions/download-artifact@v4
         with:
           path: reports
+
+
+      - name: Get directories list and store in DIRS
+        id: get_dirs
+        run: |
+          # Получаем список директорий в корневой директории
+          dirs=$(ls -d */ | sed 's#/##')
+          
+          # Экранируем пробелы, если они есть в именах директорий
+          dirs_escaped=$(echo "$dirs" | sed 's/ /\\ /g')
+          
+          # Записываем значение в переменную окружения
+          echo "DIRS=${dirs_escaped}" >> $GITHUB_ENV
+
+      - name: List contents of specified directories using for loop
+        run: |
+          echo "Listing contents of specified directories:"
+          for dir in ${{ env.DIRS }}; do
+            if [ -d "$dir" ]; then
+              echo "Contents of directory '$dir':"
+              find "$dir" -print
+            else
+              echo "Directory '$dir' does not exist."
+            fi
+          done
+          
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         if: always()
@@ -41,3 +67,6 @@ jobs:
       - name: Add summary
         run: |
           echo "📊 [View report](${{ steps.deployment.outputs.page_url }})" >> $GITHUB_STEP_SUMMARY
+#         echo playwright test results >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View report](${{ steps.deployment.outputs.page_url }})"
+
