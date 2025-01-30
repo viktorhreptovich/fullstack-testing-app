@@ -49,5 +49,8 @@ jobs:
           path: tests/playwright/reports
           retention-days: 1
   deploy-reports:
+    permissions:
+      pages: write
+      id-token: write
     needs: playwright-test
     uses: ./.github/workflows/deploy-reports.yml
