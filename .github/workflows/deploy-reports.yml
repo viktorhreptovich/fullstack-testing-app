@@ -35,18 +35,17 @@ jobs:
           # Записываем значение в переменную окружения
           echo "DIRS=${dirs_escaped}" >> $GITHUB_ENV
 
-#      - name: List contents of specified directories using for loop
-#        run: |
-#          echo "Listing contents of specified directories:"
-#          for dir in ${{ env.DIRS }}; do
-#            if [ -d "$dir" ]; then
-#              echo "Contents of directory '$dir':"
-#              find "$dir" -print
-#            else
-#              echo "Directory '$dir' does not exist."
-#            fi
-#          done
-          
+      - name: List contents of specified directories using for loop
+        run: |
+          echo "Listing contents of specified directories:"
+          for dir in ${{ env.DIRS }}; do
+            if [ -d "$dir" ]; then
+              echo "Contents of directory '$dir':"
+              find "$dir" -print
+            else
+              echo "Directory '$dir' does not exist."
+            fi
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
