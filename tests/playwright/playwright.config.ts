@@ -15,7 +15,7 @@ export default defineConfig({
   expect: {
     timeout: 2000,
   },
-  testDir: './tests',
+  testDir: './tests/specs/navigation',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -29,15 +29,14 @@ export default defineConfig({
   reporter: [
     // ['json', { outputFile: 'results.json' }],
     // ['./reporter/my-reporter.ts', {}],
-    ['html', { open: 'always', outputFolder: './reports/html-report' }],
-    // [
-    //   'monocart-reporter',
-    //   {
-    //     name: 'My Test Report',
-    //     outputFile: './reports/monocart-report/index.html',
-    //     traceViewerUrl: '/trace/index.html?trace={traceUrl}',
-    //   },
-    // ],
+    ['html', { open: process.env.CI ? 'never' : 'always', outputFolder: './reports/html-report' }],
+    [
+      'monocart-reporter',
+      {
+        name: 'My Test Report',
+        outputFile: './reports/monocart-report/index.html',
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

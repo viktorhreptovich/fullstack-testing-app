@@ -13,8 +13,8 @@ export class SignUpPage {
   constructor(page: Page) {
     this.page = page;
     this.path = '/signup';
-    this.container = page.getByTestId('container').filter({ has: page.getByTestId('form-auth') });
-    this._signUpForm = () => new SignUpForm(this.container.getByTestId('form-auth'));
+    this.container = page.getByTestId('container').filter({ has: page.getByTestId('page-signup') });
+    this._signUpForm = () => new SignUpForm(this.container.getByTestId('form-signup'));
   }
 
   async open() {
