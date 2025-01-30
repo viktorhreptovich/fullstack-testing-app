@@ -38,4 +38,6 @@ jobs:
         with:
           artifact_name: github-pages
         if: always()
-    
+      - name: Add summary
+        run: |
+          echo "📊 [View report](${{ steps.deployment.outputs.page_url }})" >> $GITHUB_STEP_SUMMARY
