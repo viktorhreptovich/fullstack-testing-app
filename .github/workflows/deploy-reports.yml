@@ -1,13 +1,11 @@
-#Reusable workflow to deploy reports to github pages
+#Reusable workflow to deploy reports to GitHub pages
 name: Deploy reports
 
 on:
   workflow_call:
 
 jobs:
-  deploy-reports:
-    outputs:
-      page_url: ${{ steps.deployment.outputs.page_url }}
+  reports:
     environment:
       name: github-pages
     permissions:
@@ -48,13 +46,5 @@ jobs:
           
           # Выводим список директорий
           for dir in $dirs; do
-            echo "📊 [View $dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
+            echo "📊 View [$dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
           done
-#      - name: Add summary
-#        run: |
-#          echo "Listing contents of specified directories:"
-#          for dir in ${{ env.DIRS }}; do
-#            if [ -d "$dir" ]; then
-#              echo "📊 [View $dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
-#            fi
-#          done
