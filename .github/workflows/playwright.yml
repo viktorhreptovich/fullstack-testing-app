@@ -46,7 +46,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: reports
-          path: tests/playwright/reports/html-report
+          path: tests/playwright/reports
           retention-days: 1
   deploy-reports:
     permissions:
