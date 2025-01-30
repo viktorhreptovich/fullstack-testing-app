@@ -25,8 +25,7 @@ jobs:
 
       - name: Get directories list and store in DIRS
         id: get_dirs
-        with:
-          working-directory: ./reports
+        working-directory: ./reports
         run: |
           # Получаем список директорий в корневой директории
           dirs=$(ls -d */ | sed 's#/##')
