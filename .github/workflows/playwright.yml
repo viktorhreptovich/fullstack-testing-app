@@ -48,5 +48,6 @@ jobs:
           name: reports
           path: tests/playwright/reports
           retention-days: 1
-      - name: Deploy to GitHub Pages
-        uses: ./.github/workflows/deploy-reports.yml
+  deploy-reports:
+    needs: playwright-test
+    uses: ./.github/workflows/deploy-reports.yml
