@@ -28,7 +28,7 @@ jobs:
         working-directory: ./reports
         run: |
           # Получаем список директорий в корневой директории
-          dirs=$(ls -d */ | tr -d ' \n' | sed 's#/##')
+          dirs=$(ls -d */ | tr -d '\n' | sed 's#/##')
           
           # Выводим список директорий
           echo "Directories:\n $dirs"
@@ -63,4 +63,9 @@ jobs:
         if: always()
       - name: Add summary
         run: |
-          echo "📊 [View report](${{ steps.deployment.outputs.page_url }})" >> $GITHUB_STEP_SUMMARY
+          echo "Listing contents of specified directories:"
+          for dir in ${{ env.DIRS }}; do
+            if [ -d "$dir" ]; then
+              echo "📊 [View $dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
