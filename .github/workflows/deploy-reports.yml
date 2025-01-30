@@ -33,6 +33,10 @@ jobs:
           # Экранируем пробелы, если они есть в именах директорий
           dirs_escaped=$(echo "$dirs" | sed 's/ /\\ /g')
           
+          # Выводим список директорий
+          echo "Directories: $dirs"
+          echo "Directories escaped: $dirs_escaped"
+          
           # Записываем значение в переменную окружения
           echo "DIRS=${dirs_escaped}" >> $GITHUB_ENV
 
