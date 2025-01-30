@@ -9,7 +9,6 @@ export class SignUpForm {
   private passwordInput: Locator;
   private passwordError: Locator;
   private signUpButton: Locator;
-  private goSignUpButton: Locator;
   private goSignInButton: Locator;
 
   constructor(container: Locator) {
@@ -20,9 +19,8 @@ export class SignUpForm {
     this.emailError = container.getByTestId('error-email');
     this.passwordInput = container.getByTestId('input-password');
     this.passwordError = container.getByTestId('error-password');
-    this.signUpButton = container.getByTestId('button-auth');
-    this.goSignUpButton = container.getByTestId('button-go-signup');
-    this.goSignInButton = container.getByTestId('button-go-signin');
+    this.signUpButton = container.getByTestId('button-signup');
+    this.goSignInButton = container.getByTestId('link-go-signin');
   }
 
   async shouldBeVisible() {

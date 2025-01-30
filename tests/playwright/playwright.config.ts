@@ -29,7 +29,7 @@ export default defineConfig({
   reporter: [
     // ['json', { outputFile: 'results.json' }],
     // ['./reporter/my-reporter.ts', {}],
-    ['html', { open: 'always', outputFolder: './reports/html-report' }],
+    ['html', { open: process.env.CI ? 'never' : 'always', outputFolder: './reports/html-report' }],
     // [
     //   'monocart-reporter',
     //   {
