@@ -61,4 +61,4 @@ jobs:
       pages: write
       id-token: write
     needs: playwright-test
-    uses: ./.github/workflows/reports.yml
+    uses: ./.github/workflows/deploy-reports.yml
