@@ -41,13 +41,21 @@ jobs:
         run: npm ci
       - name: Run Playwright tests
         run: npx playwright test
-      - name: Upload Playwright report
+      - name: Upload Playwright html report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: reports
-          path: tests/playwright/reports
+          name: playwright-html-report
+          path: tests/playwright/html-report
           retention-days: 1
+      - name: Upload Playwright monocart report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-monocart-report
+          path: tests/playwright/monocart-report
+          retention-days: 1
+
   deploy-reports:
     permissions:
       pages: write

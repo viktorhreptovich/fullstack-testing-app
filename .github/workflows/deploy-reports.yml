@@ -40,10 +40,7 @@ jobs:
           echo "Listing contents of specified directories:"
           for dir in ${{ env.DIRS }}; do
             if [ -d "$dir" ]; then
-              echo "Contents of directory '$dir':"
-              find "$dir" -print
-            else
-              echo "Directory '$dir' does not exist."
+              echo "'$dir'"
             fi
           done
 
