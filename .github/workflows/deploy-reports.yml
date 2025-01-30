@@ -28,7 +28,7 @@ jobs:
         working-directory: ./reports
         run: |
           # Получаем список директорий в корневой директории
-          dirs=$(ls -d */ | tr'\n' ' ' | sed 's#/##')
+          dirs=$(ls -d */ | tr '\n' ' ' | sed 's#/##')
           
           # Выводим список директорий
           echo "Directories:\n $dirs"
