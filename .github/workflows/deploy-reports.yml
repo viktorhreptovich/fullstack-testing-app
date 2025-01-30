@@ -61,11 +61,11 @@ jobs:
         with:
           artifact_name: github-pages
         if: always()
-      - name: Add summary
-        run: |
-          echo "Listing contents of specified directories:"
-          for dir in ${{ env.DIRS }}; do
-            if [ -d "$dir" ]; then
-              echo "📊 [View $dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
-            fi
-          done
+#      - name: Add summary
+#        run: |
+#          echo "Listing contents of specified directories:"
+#          for dir in ${{ env.DIRS }}; do
+#            if [ -d "$dir" ]; then
+#              echo "📊 [View $dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
+#            fi
+#          done
