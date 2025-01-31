@@ -55,10 +55,16 @@ jobs:
           name: playwright-monocart-report
           path: tests/playwright/reports/monocart-report
           retention-days: 1
+      - name: Add playwright test results summary
+        uses: viktorhreptovich/playwright-summary-action@main
+        if: always()
+        with:
+          file-path: tests/playwright/reports/json/results.json
 
   deploy:
     permissions:
       pages: write
       id-token: write
     needs: playwright-test
+    if: always()
     uses: ./.github/workflows/deploy-reports.yml
