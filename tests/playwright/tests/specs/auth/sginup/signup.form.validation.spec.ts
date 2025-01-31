@@ -1,5 +1,4 @@
 import { test } from '@playwright/test';
-import { AuthPage } from '../../../objects/pages/auth.page';
 import signUpFormValidationData from '../../../testdata/signup.form.validation.json';
 import { SignUpPage } from '../../../objects/pages/signup.page';
 
