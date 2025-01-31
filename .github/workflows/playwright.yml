@@ -1,7 +1,5 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [main, master]
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -40,6 +38,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run Playwright tests
+        id: playwright
         run: npx playwright test
       - name: Upload Playwright html report
         uses: actions/upload-artifact@v4
@@ -56,11 +55,31 @@ jobs:
           path: tests/playwright/reports/monocart-report
           retention-days: 1
       - name: Add playwright test results summary
+        id: playwright-summary
         uses: viktorhreptovich/playwright-summary-action@main
         if: always()
         with:
           file-path: tests/playwright/reports/json/results.json
-
+      - name: Telegram notification
+        uses: cbrgm/telegram-github-action@v1.2.2
+        if: always()
+        with:
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          parse-mode: markdown
+          disable-web-page-preview: true
+          message: |
+            🚀 Playwright tests finished
+            Status: ${{ steps.playwright.conclusion}} 🤬
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Details: 
+            Start time: ${{ steps.playwright-summary.outputs.starttime}}
+            Duration: ${{ steps.playwright-summary.outputs.duration}}
+            🟢 Passed   ${{ steps.playwright-summary.outputs.passed}}
+            🔴 Failed   ${{ steps.playwright-summary.outputs.failed}}
+            ⚪ Skipped  ${{ steps.playwright-summary.outputs.skipped}}
+            🟠 Flaky    ${{ steps.playwright-summary.outputs.flaky}}
+            
   deploy:
     permissions:
       pages: write
