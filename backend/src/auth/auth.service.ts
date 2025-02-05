@@ -36,6 +36,6 @@ export class AuthService {
   }
 
   token(tokenPayload: ITokenPayload) {
-    return this.jwtService.sign({ ...tokenPayload });
+    return { access_token: this.jwtService.sign({ ...tokenPayload }) };
   }
 }

@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dto/create.category.dto';
-import { BadRequestException, ConflictException } from '@nestjs/common';
+import { ConflictException } from '@nestjs/common';
 import DuplicateCategoryException from './exception/duplicate.category.exception';
 
 describe('CategoryService', () => {
@@ -70,7 +70,7 @@ describe('CategoryService', () => {
 
       const create = () => service.create(newCategory as CreateCategoryDto);
 
-      await expect(create).rejects.toThrow(BadRequestException);
+      await expect(create).rejects.toThrow(DuplicateCategoryException);
       await expect(create).rejects.toThrow(
         new ConflictException('Category "Test Category" already exists for user: 1'),
       );

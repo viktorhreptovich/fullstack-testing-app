@@ -2,7 +2,7 @@ import { IsEmail, MinLength } from 'class-validator';
 
 export class CreateUserDto {
   @MinLength(2, { message: 'Name must be at least 2 characters long' })
-  name: string;
+  username: string;
 
   @IsEmail({}, { message: 'Email is not valid' })
   email: string;

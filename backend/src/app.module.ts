@@ -5,7 +5,7 @@ import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
 import { AuthModule } from './auth/auth.module';
 import { TransactionModule } from './transaction/transaction.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 
@@ -15,18 +15,6 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useClass: TypeOrmConfigService,
-      //  use useClass syntax instead
-      // useFactory: (configService: ConfigService) => ({
-      //     type: 'postgres',
-      //     host: configService.get('DB_HOST'),
-      //     port: configService.get('DB_PORT'),
-      //     username: configService.get('DB_USERNAME'),
-      //     password: configService.get('DB_PASSWORD'),
-      //     database: configService.get('DB_NAME'),
-      //     entities: [`${__dirname}/**/*.entity.{ts,js}`],
-      //     synchronize: true
-      // }),
-      // inject: [ConfigService]
     }),
     UserModule,
     CategoryModule,
