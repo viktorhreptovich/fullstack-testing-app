@@ -24,6 +24,7 @@ module.exports = {
   env: {
     node: true,
     jest: true,
+    browser: true,
   },
   ignorePatterns: ['.eslintrc.cjs'],
   //https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs
