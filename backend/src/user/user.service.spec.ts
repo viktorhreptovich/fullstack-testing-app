@@ -33,13 +33,13 @@ describe('UserService', () => {
   describe('create', () => {
     it('should call findOneByEmail method of userService, hash password and return a user', async () => {
       const newUser = {
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'password',
       };
       const mockUser = {
         id: 1,
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'hashedPassword',
       };
@@ -56,7 +56,7 @@ describe('UserService', () => {
       expect(argon2.hash).toHaveBeenCalledWith(newUser.password);
       expect(argon2.hash).toHaveBeenCalledTimes(1);
       expect(userRepository.save).toHaveBeenCalledWith({
-        name: newUser.name,
+        username: newUser.username,
         email: newUser.email,
         password: 'hashedPassword',
       });
@@ -65,7 +65,7 @@ describe('UserService', () => {
 
     it('should throw DuplicateEmailException if user already exists', async () => {
       const duplicatedUser = {
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'password',
       };
@@ -82,7 +82,7 @@ describe('UserService', () => {
   describe('findOneByEmail', () => {
     it('should return a user by email', async () => {
       const user = {
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'hashedPassword',
       };
@@ -101,12 +101,12 @@ describe('UserService', () => {
     it('should return a user by id', async () => {
       const user = {
         id: 1,
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'hashedPassword',
       };
 
-      jest.spyOn(userRepository, 'findOne').mockResolvedValueOnce(user as User);
+      jest.spyOn(userRepository, 'findOneBy').mockResolvedValueOnce(user as User);
 
       const result = await userService.findOneById(user.id);
 

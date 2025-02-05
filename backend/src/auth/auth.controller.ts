@@ -1,32 +1,28 @@
-import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupAuthDto } from './dto/signup.auth.dto';
 import { SigninAuthDto } from './dto/signin.auth.dto';
-import { Response } from 'express';
-import { JwtAuthGuard } from './guards/jwt.auth.guard';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  async signUp(@Body() signupAuthDto: SignupAuthDto) {
-    return this.authService.signUp(signupAuthDto);
+  @ApiOperation({ summary: 'Sign up a new user' })
+  @ApiResponse({ status: 201, description: 'The user has been successfully created and signed up' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  async signUp(@Body() signupAuthDto: SignupAuthDto): Promise<{ access_token: string }> {
+    return await this.authService.signUp(signupAuthDto);
   }
 
   @Post('signin')
-  async signIn(@Body() signinAuthDto: SigninAuthDto, @Res({ passthrough: true }) response: Response) {
-    const jwt = await this.authService.signIn(signinAuthDto);
-    response.status(200);
-    response.cookie('jwt', jwt, { httpOnly: true });
-    return { message: 'Signed in successfully' };
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post('signout')
-  async signOut(@Res({ passthrough: true }) response: Response) {
-    response.status(200);
-    response.clearCookie('jwt');
-    return { message: 'Signed out successfully' };
+  @HttpCode(200)
+  @ApiOperation({ summary: 'Sign in a user' })
+  @ApiResponse({ status: 200, description: 'Returns JWT token' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async signIn(@Body() signinAuthDto: SigninAuthDto): Promise<{ access_token: string }> {
+    return await this.authService.signIn(signinAuthDto);
   }
 }

@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -12,19 +11,13 @@ describe('AuthController', () => {
   let authController: AuthController;
   let authService: AuthService;
 
-  const mockAuthService = {
-    signUp: jest.fn(),
-    signIn: jest.fn(),
-    signOut: jest.fn(),
-  };
-
   const user = {
-    name: 'John Doe',
+    username: 'John Doe',
     email: 'jhon@example.com',
     password: 'hashedPassword',
   };
 
-  const jwtToken = 'jwtToken';
+  const jwtToken = { access_token: 'jwtToken' };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -50,7 +43,7 @@ describe('AuthController', () => {
   });
 
   describe('signUp', () => {
-    it('should call signUp method of AuthService', async () => {
+    it('should call signUp method of AuthService and return JWT token', async () => {
       jest.spyOn(authService, 'signUp').mockResolvedValueOnce(jwtToken);
 
       const result = await authController.signUp(user);
@@ -62,36 +55,14 @@ describe('AuthController', () => {
   });
 
   describe('signIn', () => {
-    it('should call signIn method of AuthService and return response', async () => {
-      const response: Partial<Response> = {
-        status: jest.fn(),
-        cookie: jest.fn(),
-      };
-
+    it('should call signIn method of AuthService and return JWT token', async () => {
       jest.spyOn(authService, 'signIn').mockResolvedValueOnce(jwtToken);
 
-      const result = await authController.signIn(user, response as Response);
+      const result = await authController.signIn(user);
 
       expect(authService.signIn).toHaveBeenCalledWith(user);
       expect(authService.signIn).toHaveBeenCalledTimes(1);
-      expect(result).toEqual({ message: 'Signed in successfully' });
-      expect(response.status).toHaveBeenCalledWith(200);
-      expect(response.cookie).toHaveBeenCalledWith('jwt', jwtToken, { httpOnly: true });
-    });
-  });
-
-  describe('signOut', () => {
-    it('should call signOut method of AuthService and return response', async () => {
-      const response: Partial<Response> = {
-        status: jest.fn(),
-        clearCookie: jest.fn(),
-      };
-
-      const result = await authController.signOut(response as Response);
-
-      expect(result).toEqual({ message: 'Signed out successfully' });
-      expect(response.status).toHaveBeenCalledWith(200);
-      expect(response.clearCookie).toHaveBeenCalledWith('jwt');
+      expect(result).toEqual(jwtToken);
     });
   });
 });

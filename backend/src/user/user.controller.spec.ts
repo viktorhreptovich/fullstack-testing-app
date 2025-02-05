@@ -33,7 +33,7 @@ describe('UserController', () => {
   describe('create', () => {
     it('should call create method of userService and return a user', async () => {
       const newUser = {
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'password',
       };
@@ -51,7 +51,7 @@ describe('UserController', () => {
     it('should call findOne method of userService and return a user', async () => {
       const user = {
         id: 1,
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'hashedPassword',
       };
@@ -60,7 +60,7 @@ describe('UserController', () => {
 
       const result = await userController.findOne(user.id.toString());
 
-      expect(userService.findOneById).toHaveBeenCalledWith(user.id.toString());
+      expect(userService.findOneById).toHaveBeenCalledWith(user.id);
       expect(userService.findOneById).toHaveBeenCalledTimes(1);
       expect(result).toEqual(user);
     });
@@ -69,7 +69,7 @@ describe('UserController', () => {
     it('should call findOneByEmail method of userService and return a user', async () => {
       const user = {
         id: 1,
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'hashedPassword',
       };

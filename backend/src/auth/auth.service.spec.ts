@@ -14,10 +14,11 @@ describe('AuthService', () => {
   let jwtService: JwtService;
 
   const jwtToken = 'jwtToken';
+  const accessToken = { access_token: jwtToken };
 
   const mockUser = {
     id: 1,
-    name: 'John',
+    username: 'John',
     email: 'jhon@example.com',
     password: 'hashedPassword',
   };
@@ -47,39 +48,39 @@ describe('AuthService', () => {
   });
 
   describe('signUp', () => {
-    it('should call create method of userService and return a JWT token', async () => {
+    it('should call create method of userService and return a access token', async () => {
       const newUser = {
-        name: 'John Doe',
+        username: 'John Doe',
         email: 'jhon@example.com',
         password: 'password',
       };
 
       jest.spyOn(userService, 'create').mockImplementationOnce(() => Promise.resolve(mockUser as User));
-      jest.spyOn(authService, 'token').mockReturnValue(jwtToken);
+      jest.spyOn(authService, 'token').mockReturnValue(accessToken);
 
       const result = await authService.signUp(newUser);
 
       expect(userService.create).toHaveBeenCalledWith(newUser);
       expect(authService.token).toHaveBeenCalledWith({ id: mockUser.id, email: mockUser.email });
-      expect(result).toEqual(jwtToken);
+      expect(result).toEqual(accessToken);
     });
   });
 
   describe('signUp', () => {
-    it('should call validateUser method of authService and return a JWT token', async () => {
+    it('should call validateUser method of authService and return a access token', async () => {
       const registeredUser = {
         email: 'jhon@example.com',
         password: 'password',
       };
 
       jest.spyOn(authService, 'validateUser').mockImplementationOnce(() => Promise.resolve(mockUser as User));
-      jest.spyOn(authService, 'token').mockReturnValue(jwtToken);
+      jest.spyOn(authService, 'token').mockReturnValue(accessToken);
 
       const result = await authService.signIn(registeredUser);
 
       expect(authService.validateUser).toHaveBeenCalledWith(registeredUser.email, registeredUser.password);
       expect(authService.token).toHaveBeenCalledWith({ id: mockUser.id, email: mockUser.email });
-      expect(result).toEqual(jwtToken);
+      expect(result).toEqual(accessToken);
     });
   });
 
@@ -132,12 +133,12 @@ describe('AuthService', () => {
   });
 
   describe('token', () => {
-    it('should return a JWT token', () => {
+    it('should return a access token', () => {
       const tokenPayload = { id: 1, email: 'jhon@example.com' };
 
       jest.spyOn(jwtService, 'sign').mockReturnValue(jwtToken);
 
-      expect(authService.token(tokenPayload)).toEqual(jwtToken);
+      expect(authService.token(tokenPayload)).toEqual(accessToken);
     });
   });
 });
