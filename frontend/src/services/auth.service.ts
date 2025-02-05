@@ -1,4 +1,4 @@
-import { ISignInRequest, ISignUpRequest, ISignUpResponse } from '../types/types.ts';
+import { ISignInRequest, ISignInResponse, ISignUpRequest, ISignUpResponse } from '../types/types.ts';
 import { apiClient } from '../api/axios.api.ts';
 
 export const AuthService = {
@@ -7,7 +7,7 @@ export const AuthService = {
     return data;
   },
 
-  async signIn(signInRequest: ISignInRequest): Promise<ISignUpResponse | undefined> {
+  async signIn(signInRequest: ISignInRequest): Promise<ISignInResponse | undefined> {
     const { data } = await apiClient.post<ISignUpResponse>('auth/signin', signInRequest);
     return data;
   },
