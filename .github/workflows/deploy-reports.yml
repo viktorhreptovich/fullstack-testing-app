@@ -11,6 +11,7 @@ jobs:
     permissions:
       pages: write
       id-token: write
+      contents: write
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -19,32 +20,48 @@ jobs:
           node-version: lts/*
       - uses: actions/download-artifact@v4
         with:
-          path: reports
+          pattern: '*report*'
+          path: gh-pages/${{ github.run_id }}
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        if: always()
+#      old deploy, rewrite reports on GitHub Pages
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v3
+#        if: always()
+#        with:
+#          name: github-pages
+#          path: gh-pages/${{ github.run_id }}
+
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v3
+#        if: always()
+#        with:
+#          name: github-pages
+#          path: reports
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v4
+#        if: always()
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v4
+#        with:
+#          artifact_name: github-pages
+#        if: always()
+
+      - name: Deploy to GitHub Pages 🚀
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: github-pages
-          path: reports
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        if: always()
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages
-        if: always()
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: gh-pages
+          keep_files: true
 
       - name: Add summary
         id: get_dirs
-        working-directory: ./reports
+        working-directory: gh-pages/${{ github.run_id }}
         run: |
           # Get list of report directories 
-          dirs=$(ls -d */ | sed 's|/$||')
+          dirs=$(ls -d */ | sed 's|/$||' | grep -i 'report')
           
-          # Выводим список директорий
+          # Add report links
           for dir in $dirs; do
-            echo "📊 View [$dir](${{ steps.deployment.outputs.page_url }}/$dir)" >> $GITHUB_STEP_SUMMARY
+            echo "📊 View [$dir](https://viktorhreptovich.github.io/fullstack-testing-app/${{ github.run_id }}/$dir)" >> $GITHUB_STEP_SUMMARY
           done

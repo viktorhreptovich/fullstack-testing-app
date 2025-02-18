@@ -17,7 +17,13 @@ describe('AuthController', () => {
     password: 'hashedPassword',
   };
 
-  const jwtToken = { access_token: 'jwtToken' };
+  const userWithToken = {
+    access_token: 'jwtToken',
+    user: {
+      id: 1,
+      ...user,
+    } as User,
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -44,25 +50,25 @@ describe('AuthController', () => {
 
   describe('signUp', () => {
     it('should call signUp method of AuthService and return JWT token', async () => {
-      jest.spyOn(authService, 'signUp').mockResolvedValueOnce(jwtToken);
+      jest.spyOn(authService, 'signUp').mockResolvedValueOnce(userWithToken);
 
       const result = await authController.signUp(user);
 
       expect(authService.signUp).toHaveBeenCalledWith(user);
       expect(authService.signUp).toHaveBeenCalledTimes(1);
-      expect(result).toEqual(jwtToken);
+      expect(result).toEqual(userWithToken);
     });
   });
 
   describe('signIn', () => {
     it('should call signIn method of AuthService and return JWT token', async () => {
-      jest.spyOn(authService, 'signIn').mockResolvedValueOnce(jwtToken);
+      jest.spyOn(authService, 'signIn').mockResolvedValueOnce(userWithToken);
 
       const result = await authController.signIn(user);
 
       expect(authService.signIn).toHaveBeenCalledWith(user);
       expect(authService.signIn).toHaveBeenCalledTimes(1);
-      expect(result).toEqual(jwtToken);
+      expect(result).toEqual(userWithToken);
     });
   });
 });

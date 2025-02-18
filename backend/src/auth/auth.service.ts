@@ -15,12 +15,14 @@ export class AuthService {
 
   async signUp(signupAuthDto: SignupAuthDto) {
     const user = await this.userService.create(signupAuthDto);
-    return this.token({ id: user.id, email: user.email });
+    const token = this.token({ id: user.id, email: user.email });
+    return { ...token, user };
   }
 
   async signIn(signinAuthDto: SigninAuthDto) {
     const user = await this.validateUser(signinAuthDto.email, signinAuthDto.password);
-    return this.token({ id: user.id, email: user.email });
+    const token = this.token({ id: user.id, email: user.email });
+    return { ...token, user };
   }
 
   async validateUser(email: string, pass: string) {

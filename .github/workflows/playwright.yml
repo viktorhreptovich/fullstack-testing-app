@@ -1,7 +1,5 @@
 name: Playwright Tests
 on:
-  pull_request:
-    branches: [main, master]
   workflow_dispatch:
     inputs:
       tags:
@@ -82,6 +80,7 @@ jobs:
             
   deploy:
     permissions:
+      contents: write
       pages: write
       id-token: write
     needs: playwright-test

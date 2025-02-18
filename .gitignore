@@ -2,3 +2,6 @@
 /http_requests/
 /docker-data/
 /temp/
+/tests/selenide/
+/frontend/pacts/
+/pacts/
