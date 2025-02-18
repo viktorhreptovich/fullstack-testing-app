@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","92","a request to sign up with an existing email","Pact Verification AuthController","Tue Feb 18 11:49:41 UTC 2025","passed","Tue Feb 18 11:49:41 UTC 2025","","","",""
+"","180","a request to sign up with a new email","Pact Verification AuthController","Tue Feb 18 11:49:41 UTC 2025","passed","Tue Feb 18 11:49:41 UTC 2025","","","",""
