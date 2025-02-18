@@ -12,7 +12,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Sign up a new user' })
   @ApiResponse({ status: 201, description: 'The user has been successfully created and signed up' })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  async signUp(@Body() signupAuthDto: SignupAuthDto): Promise<{ access_token: string }> {
+  async signUp(@Body() signupAuthDto: SignupAuthDto) {
     return await this.authService.signUp(signupAuthDto);
   }
 
@@ -22,7 +22,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Returns JWT token' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async signIn(@Body() signinAuthDto: SigninAuthDto): Promise<{ access_token: string }> {
+  async signIn(@Body() signinAuthDto: SigninAuthDto) {
     return await this.authService.signIn(signinAuthDto);
   }
 }

@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service.ts';
 import { toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
 import { Link } from 'react-router';
-import { setAccessTokenToLocalStorage } from '../utils/localstorage.utils.ts';
+import { setAccessTokenToLocalStorage } from '../utils/storage/token.localstorage.ts';
 import { useAppDispatch } from '../store/hooks.ts';
 import { signUp } from '../store/slices/user.slice.ts';
 

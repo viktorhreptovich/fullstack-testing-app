@@ -62,7 +62,7 @@ describe('AuthService', () => {
 
       expect(userService.create).toHaveBeenCalledWith(newUser);
       expect(authService.token).toHaveBeenCalledWith({ id: mockUser.id, email: mockUser.email });
-      expect(result).toEqual(accessToken);
+      expect(result).toEqual({ ...accessToken, user: mockUser });
     });
   });
 
@@ -80,7 +80,7 @@ describe('AuthService', () => {
 
       expect(authService.validateUser).toHaveBeenCalledWith(registeredUser.email, registeredUser.password);
       expect(authService.token).toHaveBeenCalledWith({ id: mockUser.id, email: mockUser.email });
-      expect(result).toEqual(accessToken);
+      expect(result).toEqual({ ...accessToken, user: mockUser });
     });
   });
 
