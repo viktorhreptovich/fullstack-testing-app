@@ -11,6 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+        working-directory: ./frontend
         with:
           node-version: lts/*
           cache: 'npm'
