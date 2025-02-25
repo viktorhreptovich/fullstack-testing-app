@@ -1,0 +1,1 @@
+[{"uid":"a8b2d08b7a12fbfc","name":"a request to sign up with a new email","time":{"start":1740499494794,"stop":1740499494844,"duration":50},"status":"passed","severity":"normal"},{"uid":"bf25b0cc515b40df","name":"a request to sign up with an existing email","time":{"start":1740499494844,"stop":1740499494858,"duration":14},"status":"passed","severity":"normal"}]
