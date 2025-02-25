@@ -1,0 +1,41 @@
+{
+  "description": "a request to sign up with a new email",
+  "providerStates": [
+    {
+      "name": "user is not in use",
+      "params": {
+        "user": {
+          "email": "test@example.com",
+          "id": 1,
+          "username": "testuser"
+        }
+      }
+    }
+  ],
+  "request": {
+    "body": {
+      "email": "test@example.com",
+      "password": "password123",
+      "username": "testuser"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "method": "POST",
+    "path": "/api/auth/signup"
+  },
+  "response": {
+    "body": {
+      "access_token": "mock-access-token",
+      "user": {
+        "email": "test@example.com",
+        "id": 1,
+        "username": "testuser"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "status": 201
+  }
+}
