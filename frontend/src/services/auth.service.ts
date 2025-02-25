@@ -1,5 +1,5 @@
 import { ISignInRequest, ISignInResponse, ISignUpRequest, ISignUpResponse } from '../types/types.ts';
-import { apiClient } from '../api/axios.api.ts';
+import apiClient from '../api/axios.api.ts';
 
 export const AuthService = {
   async signUp(signUpRequest: ISignUpRequest): Promise<ISignUpResponse | undefined> {

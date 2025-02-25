@@ -40,7 +40,11 @@ const SignUp: FC = () => {
         reset();
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message.toString() || 'Something went wrong. Please try again later.';
+      let errorMessage = 'Something went wrong. Please try again later.';
+      console.log('Status', error.response?.status);
+      if (error.response?.status < 500 && error.response?.data?.message) {
+        errorMessage = error.response?.data?.message.toString();
+      }
       toast(errorMessage);
       setError('root.serverError', {
         type: 'server',
@@ -136,7 +140,7 @@ const SignUp: FC = () => {
             </button>
             {errors?.root && (
               <p className="error flex justify-center" data-testid="error-signup">
-                {errors.root.customServerError?.message?.toString()}
+                {errors.root.serverError?.message?.toString()}
               </p>
             )}
           </div>

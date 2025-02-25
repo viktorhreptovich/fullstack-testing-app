@@ -1,0 +1,47 @@
+name: Selenide Tests
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  selenide-test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm ci
+      - name: Run frontend app
+        working-directory: ./frontend
+        run: npm run dev &
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          cache: 'maven'
+          java-version: '21'
+      - name: Run tests
+        working-directory: ./tests/selenide
+        run: mvn clean test
+      - name: Upload selenide allure html report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: selenide-allure-report
+          path: tests/selenide/target/allure-report
+          retention-days: 1
+
+  deploy:
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    needs: selenide-test
+    if: always()
+    uses: ./.github/workflows/deploy-reports.yml

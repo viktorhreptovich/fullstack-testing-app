@@ -1,0 +1,5 @@
+url: http://localhost:5173
+selenide:
+  timeout: 10000
+  pollingInterval: 1000
+  headless: false
