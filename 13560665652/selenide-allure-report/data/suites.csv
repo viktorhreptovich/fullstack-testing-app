@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2674","'Sign up' form should be correct","App tests","Thu Feb 27 06:58:30 UTC 2025","passed","Thu Feb 27 06:58:33 UTC 2025","tests.auth.SignUpTest","Chrome tests","tests.auth.SignUpTest","signUpPageShouldBeCorrect"
+"Should show error: 'User already exists' when user exists","3081","Should show 'Sign up' error when user exists","App tests","Thu Feb 27 06:58:30 UTC 2025","passed","Thu Feb 27 06:58:34 UTC 2025","tests.auth.SignUpTest","Chrome tests","tests.auth.SignUpTest","shouldShowSignUpErrorWhenUserExists"
+"","3097","Should show 'Sign up' error when server error","App tests","Thu Feb 27 06:58:30 UTC 2025","passed","Thu Feb 27 06:58:34 UTC 2025","tests.auth.SignUpTest","Chrome tests","tests.auth.SignUpTest","shouldShowSignUpErrorWhenServerError"
