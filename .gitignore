@@ -4,3 +4,5 @@
 /temp/
 /frontend/pacts/
 /pacts/
+/tests/spring-test/swagger.yaml
+/selenide.iml

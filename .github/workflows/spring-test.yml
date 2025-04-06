@@ -1,0 +1,71 @@
+name: Spring Tests
+on:
+  push:
+    paths:
+      - 'tests/spring-test/**'
+  workflow_dispatch:
+
+jobs:
+  spring-test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Run database container
+        run: docker compose -f docker-compose-database.yml up -d
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm ci
+      - name: Run backend app
+        working-directory: ./backend
+        run: npm run start &
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          cache: 'maven'
+          java-version: '21'
+      - name: Run tests
+        working-directory: ./tests/spring-test
+        run: mvn
+      - name: Generate allure report
+        working-directory: ./tests/spring-test
+        run: mvn allure:report
+      - name: Generate swagger coverage report
+        working-directory: ./tests/spring-test
+        run: |
+          wget -O swagger.yaml http://localhost:3001/swagger/yaml
+          wget https://github.com/viclovsky/swagger-coverage/releases/download/1.5.0/swagger-coverage-1.5.0.zip
+          unzip swagger-coverage-1.5.0.zip
+          chmod +x ./swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline
+          ./swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s swagger.yaml -i ./target/swagger-coverage-output -c swagger-coverage-config.json
+      - name: Stop database container
+        if: always()
+        run: docker compose -f docker-compose-database.yml down
+      - name: Upload selenide allure html report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: spring-allure-report
+          path: tests/spring-test/target/allure-report
+          retention-days: 1
+      - name: Upload swagger html report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: swagger-coverage-report
+          path: tests/spring-test/target/swagger-coverage-output/index.html
+          retention-days: 1
+
+  deploy:
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    needs: spring-test
+    if: always()
+    uses: ./.github/workflows/deploy-reports.yml

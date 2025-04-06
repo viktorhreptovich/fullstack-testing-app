@@ -1,0 +1,20 @@
+{
+  "rules": {
+    "status": {
+      "enable": true,
+      "ignore": [
+        "500",
+        "default"
+      ]
+    },
+    "only-declared-status": {
+      "enable": false
+    }
+  },
+  "writers": {
+    "html": {
+      "filename": "target/swagger-coverage-output/index.html",
+      "locale": "en"
+    }
+  }
+}
