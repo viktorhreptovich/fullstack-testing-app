@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { SignupAuthDto } from './dto/signup.auth.dto';
 import { SigninAuthDto } from './dto/signin.auth.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { SignupAuthResponseDto } from './dto/signup.auth.response.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -10,7 +11,11 @@ export class AuthController {
 
   @Post('signup')
   @ApiOperation({ summary: 'Sign up a new user' })
-  @ApiResponse({ status: 201, description: 'The user has been successfully created and signed up' })
+  @ApiResponse({
+    status: 201,
+    description: 'The user has been successfully created and signed up',
+    type: SignupAuthResponseDto,
+  })
   @ApiResponse({ status: 400, description: 'Bad request' })
   async signUp(@Body() signupAuthDto: SignupAuthDto) {
     return await this.authService.signUp(signupAuthDto);

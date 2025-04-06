@@ -1,0 +1,26 @@
+AUTH_SERVICE_URL: http://localhost:3001
+spring:
+  application:
+    name: spring-test
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+  datasource:
+    url: jdbc:postgresql://localhost:5432/budget
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: full
+          auth-service:
+            url: ${AUTH_SERVICE_URL}
+

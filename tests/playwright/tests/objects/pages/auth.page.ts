@@ -6,15 +6,6 @@ export class AuthPage {
   private page: Page;
   private path: string;
   private container: Locator;
-  private _signUpForm: () => SignUpForm;
-  get signUpForm() {
-    return this._signUpForm();
-  }
-
-  private _signInForm: () => SignInForm;
-  get signInForm() {
-    return this._signInForm();
-  }
 
   constructor(page: Page) {
     this.page = page;
@@ -22,6 +13,18 @@ export class AuthPage {
     this.container = page.getByTestId('container').filter({ has: page.getByTestId('form-auth') });
     this._signUpForm = () => new SignUpForm(this.container.getByTestId('form-auth'));
     this._signInForm = () => new SignInForm(this.container.getByTestId('form-auth'));
+  }
+
+  private _signUpForm: () => SignUpForm;
+
+  get signUpForm() {
+    return this._signUpForm();
+  }
+
+  private _signInForm: () => SignInForm;
+
+  get signInForm() {
+    return this._signInForm();
   }
 
   async open() {

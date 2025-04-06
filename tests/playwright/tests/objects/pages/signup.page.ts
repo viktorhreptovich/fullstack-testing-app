@@ -6,15 +6,16 @@ export class SignUpPage {
   private readonly path: string;
   private readonly container: Locator;
   private readonly _signUpForm: () => SignUpForm;
-  get signUpForm() {
-    return this._signUpForm();
-  }
 
   constructor(page: Page) {
     this.page = page;
     this.path = '/signup';
     this.container = page.getByTestId('container').filter({ has: page.getByTestId('page-signup') });
     this._signUpForm = () => new SignUpForm(this.container.getByTestId('form-signup'));
+  }
+
+  get signUpForm() {
+    return this._signUpForm();
   }
 
   async open() {
@@ -26,6 +27,7 @@ export class SignUpPage {
   async shouldBeOpened() {
     await test.step(`'Sign up' page should be opened`, async () => {
       await expect(this.container).toBeVisible();
+      await expect(this.page).snapshot();
     });
   }
 }
