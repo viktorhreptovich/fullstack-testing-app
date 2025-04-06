@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","24","Sign up new user with invalid email should be fail","","Sun Apr 06 16:03:59 UTC 2025","passed","Sun Apr 06 16:03:59 UTC 2025","","org.example.springtest.tests.AuthServiceTest","org.example.springtest.tests.AuthServiceTest","testSignUpFailInvalidEmail"
+"","324","Sign up new user should be success","","Sun Apr 06 16:03:59 UTC 2025","passed","Sun Apr 06 16:03:59 UTC 2025","","org.example.springtest.tests.AuthServiceTest","org.example.springtest.tests.AuthServiceTest","testSignUpSuccess"
+"","1485","Sign up existing user should be fail","","Sun Apr 06 16:03:57 UTC 2025","passed","Sun Apr 06 16:03:59 UTC 2025","","org.example.springtest.tests.AuthServiceTest","org.example.springtest.tests.AuthServiceTest","testSignUpFail"
