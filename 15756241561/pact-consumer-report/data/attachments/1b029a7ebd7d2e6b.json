@@ -1,0 +1,39 @@
+{
+  "description": "a request to sign up with an existing email",
+  "providerStates": [
+    {
+      "name": "user is already in use",
+      "params": {
+        "user": {
+          "email": "existing@example.com",
+          "id": 1,
+          "password": "password123",
+          "username": "testuser"
+        }
+      }
+    }
+  ],
+  "request": {
+    "body": {
+      "email": "existing@example.com",
+      "password": "password123",
+      "username": "testuser"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "method": "POST",
+    "path": "/api/auth/signup"
+  },
+  "response": {
+    "body": {
+      "error": "Conflict",
+      "message": "Email \"existing@example.com\" already in use",
+      "statusCode": 409
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "status": 409
+  }
+}
